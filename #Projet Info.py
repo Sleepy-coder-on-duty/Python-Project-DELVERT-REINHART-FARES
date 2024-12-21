@@ -75,7 +75,6 @@ liste1=ABX_day_f
 liste2=ABX_bact_f
 fichier2.write("Les données utilisées pour le tracer des courbes de souris sous antibiotiques sont les suivantes:"+ '\n')
 fichier2.write("ID ; Abscisse ; Ordonnée"+ '\n')
-write1=[]
 for i in range(0,len(d)-1):
     x1=d[i]
     fichier2.write('\n')
@@ -92,7 +91,6 @@ liste3=placebo_day_f
 liste4=placebo_bact_f
 fichier2.write("Les données utilisées pour le tracer des courbes de souris sous placebo sont les suivantes:" +'\n')
 fichier2.write("ID ; Abscisse ; Ordonnée"+ '\n')
-write2=[]
 for i in range(0,len(f)-1):
     x2=f[i]
     fichier2.write('\n')
@@ -155,18 +153,13 @@ for i in range(0,len(y2)-1):
 fichier2.close()
 
 
-#Génération des graphiques
+#Création des graphiques
 import matplotlib.pyplot as plt
 import math
 import numpy as np
 
 #Graphique en courbes
 figure,axes=plt.subplots()
-def graphique_f(listex,listey,couleur):
-    for i in range(0,len(listey)-1):
-        listey[i]=float(math.log(float(listey[i]))/math.log(10))
-    axes.plot(listex,listey,color=couleur,label='Souris sous traitement antibiotiques')
-    return(axes)
 
 #Pour les courbes des éachantillons issu de souris sans antibiotiques
 for i in range(0,len(nb_idABX)-1):
@@ -174,11 +167,12 @@ for i in range(0,len(nb_idABX)-1):
     day=[]
     for j in range(0,len(ABX_bact_f)-1):
         if ABX_id_f[j]==nb_idABX[i]:
-            ABX.append(ABX_bact_f[j])
+            ABX.append(float(ABX_bact_f[j]))
             day.append(ABX_day_f[j])
-    B='blue'
-    graphique_f(day,ABX,B)
-axes.legend('Souris sous antibiotiques')
+    for z in range(0,len(ABX)-1):
+        ABX[z]=math.log10((ABX[z]))
+    axes.plot(day,ABX,color='blue')
+
 
 #Pour les courbes des éachantillons issu de souris sans antibiotiques
 for i in range(0,len(nb_idplacebo)-1):
@@ -186,14 +180,15 @@ for i in range(0,len(nb_idplacebo)-1):
     day=[]
     for j in range(0,len(nb_idplacebo)-1):
         if placebo_id_f[j]==nb_idABX[i]:
-            placebo.append(placebo_bact_f[j])
+            placebo.append(float(placebo_bact_f[j]))
             day.append(placebo_day_f[j])
-    O='orange'
-    graphique_f(day,placebo,O)
-axes.legend('Souris sous placebo')
+    for z in range(0,len(placebo)-1):
+        placebo[z]=math.log10((placebo[z]))
+    axes.plot(day,placebo,color='orange')
+
 
 axes.set_xlabel("Jour d'expérimentation")
-axes.set_ylabel("log10 du nombre de bactéries vivantes par g d'échantillon")
+axes.set_ylabel("log10 du nombre de bactéries vivantes par g d'échantillon",fontsize=8)
 axes.set_title("Evolution du log10 du nombre de bactéries vivantes par g d'échantillon")
 figure.savefig('Graphique en courbe des échantillons de feces.png',dpi=600)
 
@@ -202,9 +197,9 @@ figure.savefig('Graphique en courbe des échantillons de feces.png',dpi=600)
 figure2,axes2=plt.subplots()
 
 for i in range(0,len(ABX_bact_ileal)-1):
-    ABX_bact_ileal[i]=(math.log(float(ABX_bact_ileal[i]))/math.log(10))
+    ABX_bact_ileal[i]=math.log10(float(ABX_bact_ileal[i]))
 for i in range(0,len(placebo_bact_ileal)-1):
-    placebo_bact_ileal[i]=(math.log(float(placebo_bact_ileal[i]))/math.log(10))
+    placebo_bact_ileal[i]=math.log10(float(placebo_bact_ileal[i]))
 X1=np.array(ABX_bact_ileal)
 X2=np.array(placebo_bact_ileal)
 axes2.violinplot(X1)
@@ -221,7 +216,7 @@ figure3,axes3=plt.subplots()
 for i in range(0,len(ABX_bact_cecal)-1):
     ABX_bact_cecal[i]=(math.log(float(ABX_bact_cecal[i]))/math.log(10))
 for i in range(0,len(placebo_bact_cecal)-1):
-    placebo_bact_cecal[i]=(math.log(float(placebo_bact_cecal[i]))/math.log(10))
+    placebo_bact_cecal[i]=math.log10(float(placebo_bact_cecal[i]))
 X3=np.array(ABX_bact_cecal)
 X4=np.array(placebo_bact_cecal)
 axes3.violinplot(X3)
