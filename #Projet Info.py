@@ -6,25 +6,26 @@ filepath2=input("Veuillez saisir le chemin d'accès au fichier csv sur lequel vo
 
 #On crée toutes les listes pour extraire les données dans des listes distinctes:
 #Listes pour graphique en courbe
-ABX_bact_f=[]
-ABX_day_f=[]
-ABX_id_f=[]
+ABX_bact_f=[]                                                                                       # Valeur de Y
+ABX_day_f=[]                                                                                        # Valeur de X
+ABX_id_f=[]                                                                                         # Courbe en fonction de l'id du sujet de test
 
-placebo_bact_f=[]
-placebo_day_f=[]
-placebo_id_f=[]
+placebo_bact_f=[]                                                                                   # Valeur de Y du temoin
+placebo_day_f=[]                                                                                    # Valeur de X du temoin
+placebo_id_f=[]                                                                                     # NCourbe en fonction de l'id du temoin
 
 #Listes pour graphique violon cecal
-ABX_bact_cecal=[]
-ABX_id_cecal=[]
-placebo_bact_cecal=[]
-placebo_id_cecal=[]
+ABX_bact_cecal=[]                                                                                   # Valeur de Y
+ABX_id_cecal=[]                                                                                     # Nombre de courbe en fonction de l'id du sujet de test
+placebo_bact_cecal=[]                                                                               # Valeur de Y du temoin
+placebo_id_cecal=[]                                                                                 # Point en fonction de l'id du temoin
 
 #Listes pour graphique violon ileal
-ABX_bact_ileal=[]
-ABX_id_ileal=[]
-placebo_bact_ileal=[]
-placebo_id_ileal=[]
+ABX_bact_ileal=[]                                                                                   # Valeur de Y
+ABX_id_ileal=[]                                                                                     # Nombre de courbe en fonction de l'id du sujet de test
+placebo_bact_ileal=[]                                                                               # Valeur de Y du temoin
+placebo_id_ileal=[]                                                                                 # Point en fonction de l'id du temoin
+
 
 
 #On extrait les données du fichier csv dans les listes associées
