@@ -16,7 +16,7 @@ Le code permet d’obtenir un graphique standard (courbe) et un graphique violon
 Le code créer une courbe ou un point pour chaque sujets de tests et témoins. 
 
 
-Le code permet de saisir en entrée le fichier contenant les données brutes de l’expérience afin de créer un fichier contenant les données utiles pour tracer les graphiques. 
+Le code permet de saisir en entrée le chemin d'accès au fichier csv contenant les données brutes de l’expérience afin de créer un fichier contenant les données utiles pour tracer les graphiques. 
 Ce code traite ces fichiers en séparant les données CSV puis en ajoutant à des listes contenant nos valeurs de X, Y et le nombre de courbe ou point.
 Le script permet aussi de retirer les doublons éventuelles dans notre liste afin d’éviter des erreurs.
 
@@ -35,9 +35,9 @@ Il est important de noter que le code à été fait en fonction de notre documen
 
 Pour l’utilisation dans un document contenant les données issues d’autres expérience il faut s’assurer de changer les noms des colonnes et des listes dans le script avec celles qui correspondent dans votre document CVS afin d’obtenir les graphiques souhaités. 
 
-Quand on active le code, celui nous demande de rentrer le chemin d'accès du fichier à exploiter et du fichier de sortie qui aura les données que l'on à organiser.
+Quand on active le code, celui-ci nous demande de rentrer le chemin d'accès du fichier csv à exploiter et du fichier csv de sortie qui listera les données que l'on va utiliser pour les tracer de graphiques.
 
 Si l'expérience n’a pas autant de données différentes afin de faire un ou les deux graphiques en violons alors la fonction rendra un graphique vide. 
 
 Si vous désirez obtenir un deuxième graphique en courbe classique au lieu d’un graphique en violon alors copiez-collez le premier code permettant le tracé du graphique et remplacez les valeurs des listes avec celle de vos données désirées. 
-Les graphiques sont enregistrés au format PNG dans le dossier spécifié.
+Les graphiques sont enregistrés au format PNG dans le dossier dont le chemin d'accès a été spécifié.
