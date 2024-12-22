@@ -4,7 +4,7 @@ Prérequis:
 
 Python
 Bibliothèque matplotlib
-Fichier CSV contenant les données à traiter 
+Fichier CSV contenant les données à traiter, le fichier CSV d'entrée doit contenir des colonnes séparées par des points-virgules (;)
 
 Description:
 
