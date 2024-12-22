@@ -110,7 +110,6 @@ h1=placebo_bact_cecal
 h2=placebo_id_cecal
 fichier2.write("Pour le graphique en violon des souris traités avec des antibiotiques:" +'\n')
 fichier2.write("ID ; nombre de bactéries" + '\n')
-write3=[]
 for i in range(0,len(g2)-1):
     write3=';'.join([g2[i],g1[i]])
     fichier2.write(write3)
@@ -120,7 +119,6 @@ fichier2.write('\n')
 
 fichier2.write("Pour le graphique en violon des souris traités avec un placebo:"+'\n')
 fichier2.write("ID ; nombre de bactéries" + '\n')
-write4=[]
 for i in range(0, len(h2)-1):
     write4=';'.join([h2[i],h1[i]])
     fichier2.write(write4)
@@ -134,7 +132,6 @@ y2=placebo_id_ileal
 fichier2.write("Les données utilisées pour le tracer des graphiques en violon des études du microbiote ileal sont les suivantes:" +'\n')
 fichier2.write("Pour le graphique en violon des souris traités avec des antibiotiques:" +'\n')
 fichier2.write("ID ; nombre de bactéries" + '\n')
-write5=[]
 for i in range(0,len(z2)-1):
     write5=';'.join([z2[i],z1[i]])
     fichier2.write(write5)
@@ -158,70 +155,60 @@ import matplotlib.pyplot as plt
 import math
 import numpy as np
 
+#Dossier où seront enregistré les graphiques
+dossier_graph = input("Entrez le chemin d'accès du dossier où enregistrer le graphique: ")
+
 #Graphique en courbes
 figure,axes=plt.subplots()
-
-#Pour les courbes des éachantillons issu de souris sans antibiotiques
-for i in range(0,len(nb_idABX)-1):
-    ABX=[]
-    day=[]
-    for j in range(0,len(ABX_bact_f)-1):
-        if ABX_id_f[j]==nb_idABX[i]:
-            ABX.append(float(ABX_bact_f[j]))
-            day.append(ABX_day_f[j])
-    for z in range(0,len(ABX)-1):
-        ABX[z]=math.log10((ABX[z]))
-    axes.plot(day,ABX,color='blue')
-
-
-#Pour les courbes des éachantillons issu de souris sans antibiotiques
-for i in range(0,len(nb_idplacebo)-1):
-    placebo=[]
-    day=[]
-    for j in range(0,len(nb_idplacebo)-1):
-        if placebo_id_f[j]==nb_idABX[i]:
-            placebo.append(float(placebo_bact_f[j]))
-            day.append(placebo_day_f[j])
-    for z in range(0,len(placebo)-1):
-        placebo[z]=math.log10((placebo[z]))
-    axes.plot(day,placebo,color='orange')
-
-
 axes.set_xlabel("Jour d'expérimentation")
 axes.set_ylabel("log10 du nombre de bactéries vivantes par g d'échantillon",fontsize=8)
-axes.set_title("Evolution du log10 du nombre de bactéries vivantes par g d'échantillon")
-figure.savefig('Graphique en courbe des échantillons de feces.png',dpi=600)
+axes.set_title("Evolution du log10 du nombre de bactéries vivantes par g d'échantillon"+'\n'+"Gris=Placebo    Bleu=antibiotiques")
+axes.grid(True)
+   
+def tracer_graph(listeR,listeid,listey,listex,couleur,AP):
+    for i in range(0,len(listeR)-1):
+        ABX_P=[]
+        day=[]
+        for j in range(0,len(listey)-1):
+            if listeid[j]==listeR[i]:
+                ABX_P.append(math.log10(float(listey[j])))
+                day.append(int(listex[j]))
+        axes.plot(day,ABX_P,color=couleur)
+tracer_graph(nb_idABX,ABX_id_f,ABX_bact_f,ABX_day_f,'blue','antibiotiques')
+tracer_graph(nb_idplacebo,placebo_id_f,placebo_bact_f,placebo_day_f,'grey','placebo')
+
+nom_fichier=f"{dossier_graph}/Graphique en courbe des échantillons de feces.png.png"
+figure.savefig(nom_fichier,dpi=600)
 
 
-#Graphique en violon des échantillons d'ileum
-figure2,axes2=plt.subplots()
+#On combine les jeux de données dans des arrays
+X1=np.array(ABX_bact_ileal,dtype=np.float64)
+X2=np.array(placebo_bact_ileal,dtype=np.float64)
+Array1=[X1,X2]
 
-for i in range(0,len(ABX_bact_ileal)-1):
-    ABX_bact_ileal[i]=math.log10(float(ABX_bact_ileal[i]))
-for i in range(0,len(placebo_bact_ileal)-1):
-    placebo_bact_ileal[i]=math.log10(float(placebo_bact_ileal[i]))
-X1=np.array(ABX_bact_ileal)
-X2=np.array(placebo_bact_ileal)
-axes2.violinplot(X1)
-axes2.violinplot(X2)
+X3=np.array(ABX_bact_cecal,dtype=np.float64)
+X4=np.array(placebo_bact_cecal,dtype=np.float64)
+Array2=[X3,X4]
 
-axes2.set_ylabel("log10 du nombre de bacétries vivantes par g d'échantillon")
-axes2.set_title("Données sur les échantillons d'ileum")
-figure2.savefig("Graphique en violon des échantillons d'ileum.png",dpi=600)
+#fonction permettant de tracer les graphiques en violon
+def violin_plot(data,sample,nom_fichier):
+    figure,axes=plt.subplots()
 
+    num_groups = len(data)
+    for index in range(num_groups):
+        group = data[index]
+        parts = axes.violinplot(group, positions=[index + 1], showmeans=True, showextrema=True)
 
-#Graphique en violon des échantillons de caecum
-figure3,axes3=plt.subplots()
+    parts['cmeans'].set_color("green")
+    parts['cbars'].set_color("black")
 
-for i in range(0,len(ABX_bact_cecal)-1):
-    ABX_bact_cecal[i]=(math.log(float(ABX_bact_cecal[i]))/math.log(10))
-for i in range(0,len(placebo_bact_cecal)-1):
-    placebo_bact_cecal[i]=math.log10(float(placebo_bact_cecal[i]))
-X3=np.array(ABX_bact_cecal)
-X4=np.array(placebo_bact_cecal)
-axes3.violinplot(X3)
-axes3.violinplot(X4)
+    axes.set_yscale("log")
+    axes.set_title(f"Données sur les échantillons {sample}"+'\n'+"Groupe 1=placebo    Groupe 2=antibiotiques", fontsize=16)
+    axes.set_xlabel('Groupe de données', fontsize=14)
+    axes.set_ylabel('log10 du nombre de bactéries vivantes/g - Echelle logarithmique', fontsize=8)
+    axes.set_xticks(range(1, num_groups + 1), [f'Groupe {i+1}' for i in range(num_groups)])
+    figure.savefig(nom_fichier, dpi=300)
 
-axes3.set_ylabel("log10 du nombre de bactéries vivantes par g d'échantillon")
-axes3.set_title("Données sur les échantillons de caecum")
-figure3.savefig("Graphique en violon des échantillons de caecum.png",dpi=600)
+# Appeler la fonction pour tracer le graphique
+violin_plot(Array1,"d'ileum",f"{dossier_graph}\Graphique sur les données d'échantillons ileum.png")
+violin_plot(Array2,"de caecum",f"{dossier_graph}\Graphique sur les données d'échantillons caecum.png")
