@@ -22,8 +22,10 @@ Le script permet aussi de retirer les doublons éventuelles dans notre liste afi
 
 
 
-De plus il recrée un document CSV à partir de la liste mais en regroupant les données en fonction des identifiants des sujets de test. 
-On trace les différents graphiques avec les données que l’on désire. 
+De plus il recrée dans un autre document CSV (fichier qui est crée au préalable par l'utilisateur dans le même emplacement que le code) à partir des listes précédentes mais en regroupant les données en fonction des identifiants des sujets de test. 
+L'utilisateur crée aussi au préalable dans le même emplacement que le code un dossier où le programme enregistrera les graphiques génerés (le chemin d'accès de ce dossier sera saisi par l'utilisateur dans le code).
+
+Les différents graphiques sont tracés avec les données que l’on désire. 
 
 
 Le premier graphe est un graphique en courbe d’une valeur a en ordonnée en fonction d’une valeur de temps.
