@@ -4,7 +4,7 @@ Prérequis:
 
 Python
 Bibliothèque matplotlib
-Fichier CSV contenant les données à traiter, le fichier CSV d'entrée doit contenir des colonnes séparées par des points-virgules (;)
+Fichier CSV contenant les données à traiter 
 
 Description:
 
@@ -31,7 +31,11 @@ Le premier graphe est un graphique en courbe d’une valeur a en ordonnée en fo
 Le second et troisième graphiques sont des graphiques en violon à partir d’une autre valeur ‘b’ et une autre valeur ‘c’ en fonction de chaque sujet de test.
 
 
-Il est important de noter que le code à été fait en fonction de notre document CSV contenant les données de l'expérience, il fonctionne donc avec des noms de colonnes spécifiques. Pour l’utilisation dans un document contenant les données issues d’autres expériences, il faut s’assurer de changer les noms des colonnes et des listes dans le script avec celles qui correspondent dans votre document CVS afin d’obtenir les graphiques souhaités. 
+Il est important de noter que le code à été fait en fonction de notre document CSV contenant les données de l'expérience, il fonctionne donc avec des noms de colonnes spécifiques. 
+
+Pour l’utilisation dans un document contenant les données issues d’autres expérience il faut s’assurer de changer les noms des colonnes et des listes dans le script avec celles qui correspondent dans votre document CVS afin d’obtenir les graphiques souhaités. 
+
+Quand on active le code, celui nous demande de rentrer le chemin d'accès du fichier à exploiter et du fichier de sortie qui aura les données que l'on à organiser.
 
 Si l'expérience n’a pas autant de données différentes afin de faire un ou les deux graphiques en violons alors la fonction rendra un graphique vide. 
 
